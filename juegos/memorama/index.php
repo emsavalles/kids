@@ -38,8 +38,8 @@ $lascartas=substr($unac,0,strlen($unac)-1);
 		<link media="all" type="text/css" rel="stylesheet" href="../../assets/css/font-awesome.min.css">
 
 <style>
-	.carta{width:9%; cursor:pointer; margin:2px; border:1px solid #aaa;}
-	
+	.carta{width:9%;cursor:pointer; margin:2px; border:1px solid #aaa; opacity: 0.8; filter: alpha(opacity=80);}
+	.carta:hover{ opacity: 1; filter: alpha(opacity=100);}
 </style>
 
     </head>
@@ -47,9 +47,7 @@ $lascartas=substr($unac,0,strlen($unac)-1);
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-<div id="uno" class="hidden alert alert-info"></div>
-<div id="dos" class="hidden alert alert-info"></div>
-<div id="resultado" class="hidden alert"></div>
+
 
 <div class="modal fade bs-example-modal-sm"  id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
@@ -90,13 +88,20 @@ $lascartas=substr($unac,0,strlen($unac)-1);
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<div class="jumbotron">
+      <div class="container">
+<div id="uno" class="hidden alert alert-info"></div>
+<div id="dos" class="hidden alert alert-info"></div>
+<div id="resultado" class="hidden alert"></div>
+
 <div id="encontradas" class="hidden">0</div>
     <div class="container" id="cuerpo">
-        <div id="marcoimagenes" style="clear:both">
+        <div id="marcoimagenes" class="col-md-12" style="clear:both">
      
         </div>
     </div>
-
+</div>
+</div>
 		<script src="../../assets/js/jquery.js"></script>
 		<script src="../../assets/js/bootstrap.min.js"></script>
         <script type="text/javascript">
@@ -118,7 +123,7 @@ var imagenes=new Array(<?php echo $lascartas;?>);
                $('<img>')
 				   .addClass('carta')
 				   .attr({'id':'carta_'+i,'src':'cartas/REVERSO TARJETAS.jpg','activo':'0'})
-				   .appendTo('#marcoimagenes');
+                   .appendTo('#marcoimagenes');
                }               
             ////////////////////////////////////
             //Revuelve cartas
@@ -127,8 +132,8 @@ var imagenes=new Array(<?php echo $lascartas;?>);
 					img1=aleatorio(1,cuantos);
 					img2=aleatorio(1,cuantos);
 					
-					$('#carta_'+img1).attr('img',imagenes[j]+'_1');
-					$('#carta_'+img2).attr('img',imagenes[j]+'_2');
+					$('#carta_'+img1).attr('img',imagenes[j]+'_1').attr('title',imagenes[j]);
+					$('#carta_'+img2).attr('img',imagenes[j]+'_2').attr('title',imagenes[j]);
 				}
             //////////////////////////////////  
             //
@@ -167,7 +172,7 @@ var imagenes=new Array(<?php echo $lascartas;?>);
                res=1;
                encontradas++;
                $('#encontradas').text(encontradas);
-               $('#'+uno+',#'+dos).css('cursor','auto');
+               $('#'+uno+',#'+dos).css({'cursor':'auto','opacity': '1', 'filter': 'alpha(opacity=100)'});
                if(encontradas>=cuantos/2){
                 $('#myModal').modal('hide');
                 //alert('Ganaste');
